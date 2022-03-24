@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plant Haven</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <ul class="border-bottom nav justify-content-center nav-pills">
+        <li class="nav-item">
+            <a class="nav-link" href="/dashboard">Home</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/browse">Browse</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="#">Community</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/logout">Logout</a>
+        </li>
+    </ul>
+    <div class="container border border-success">
+        <div class="row">
+            <div class="col-sm">
+                <h2>We're here to help!</h2>
+                <form action="/post" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="post_content">Write about your plant issue:</label>
+                        <textarea class="form-control" name="post_content" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="post_image">Upload a photo of your plant:</label>
+                        <input type="file" class="form-control-file" name="post_image">
+                    </div>
+                    <input type="submit" class="btn btn-success" value="Submit Post">
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="container border border-success">
+        <div class="row">
+            <div class="col-sm">
+                {% for post in all_posts %}
+                    <h3>{{post.posted_by.first_name}}:</h3>
+                    <p>{{post.post_content}}</p>
+                    <p>{{post.created_at}}</p>
+                    <div class="container border border-success">
+                        <div class="row">
+                            <div class="col-sm">                        
+                                {% for comment in all_comms %}
+                                    {% if comment in post.posts_comments.all %}
+                                        <p>{{comment.comm_by.first_name}}: {{comment.comm_content}}</p>
+                                            <p>{{comment.liked_by.first_name}} liked this</p>
+                                            <a class="btn btn-success" href="/community/{{comment.id}}/like">Like Comment</a>
+                                    {% endif %}
+                                {% endfor %}
+                                <form action="/comment" method="POST">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <input type="hidden" name="post_id" value={{post.id}}>
+                                        <textarea class="form-control" name="comm_content" rows="3" placeholder="Comment on post"></textarea>
+                                        <input type="submit" class="btn btn-success" value="Submit Comment">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+</html>

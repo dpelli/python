@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Handy Helper 2</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <h1>Hello {{user.first_name}}!</h1>
+    <a class="btn btn-warning" href="/logout">Log Out</a>
+    <a class="btn btn-success" href="/jobs/new">Add a new job!</a>
+    <h1>Everyone's Jobs</h1>
+    <table class="table table-striped">
+        <tr>
+            <th>Title</th>
+            <th>Location</th>
+            <th>Actions</th>
+        </tr>
+        {% for job in all_jobs %}
+            {% if job not in user.jobs_taken.all %}
+                {% if job.added_by == user %}
+                    <tr>
+                        <td>{{job.title}}</td>
+                        <td>{{job.location}}</td>
+                        <td>
+                            <a class="btn btn-success" href="/jobs/{{job.id}}">View</a>
+                            <a class="btn btn-success" href="/jobs/{{job.id}}/edit">Edit</a>
+                            <a class="btn btn-success" href="/jobs/{{job.id}}/destroy">Remove</a>
+                            <a class="btn btn-success" href="/jobs/{{job.id}}/add">Add</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td>{{job.title}}</td>
+                        <td>{{job.location}}</td>
+                        <td>
+                            <a class="btn btn-success" href="/jobs/{{job.id}}">View</a>
+                            <a class="btn btn-success" href="/jobs/{{job.id}}/add">Add</a>
+                        </td>
+                    </tr>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    </table>
+    <h1>{{user.first_name}}'s jobs</h1>
+    <table class="table table-striped">
+        <tr>
+            <th scope="col">Job</th>
+            <th scope="col">Actions</th>
+        </tr>
+        {% for job in all_jobs %}
+            {% if user == job.taken_by %}
+                <tr>
+                    <td>{{job.title}}</td>
+                    <td>
+                        <a class="btn btn-success" href="/jobs/{{job.id}}">View</a>
+                        <a class="btn btn-success" href="/jobs/{{job.id}}/destroy">Done</a>
+                        <a class="btn btn-success" href="/jobs/{{job.id}}/release">Give Up</a>
+                    </td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+    </table>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Handy Helper</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <h1>Hi {{user.first_name}}! These are the job details!</h1>
+    <a class="btn btn-danger" href="/dashboard">Go Back</a>
+    <a class="btn btn-warning" href="/logout">Log Out</a>
+    <h1>{{job.title}}</h1>
+    <div>
+        <p>{{job.desc}}</p>
+        <p>Location: {{job.location}}</p>
+        <p>Posted by: {{job.added_by.first_name}}</p>
+        <p>Created at: {{date_posted}}</p>
+        {% if job not in user.jobs_taken.all %}
+        <a class="btn btn-success" href="/jobs/{{job.id}}/add">Add</a>
+        {% endif %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,33 @@
+*{
+    margin: 0;
+    padding: 10px 5px;
+}
+h1, h2, h3{
+    text-align: center;
+}
+#input{
+    display: inline;
+    justify-self: center;
+}
+.form-group{
+    text-align: left;
+}
+.card{
+    padding: 0;
+    margin: 5;
+    text-align: center;
+}
+.btn{
+    align-self: center;
+}
+body {
+    transition: .2s background;
+    font-family: 'Segoe UI', 'Roboto', arial, sans-serif;
+    background: rgb(255,0,53);
+    background: linear-gradient(135deg, rgba(33,34,176,1) 0%, rgba(255,0,53,1) 100%);
+    color: white;
+    height: 100vh;
+}
+.row{
+    text-align: center;
+}

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">  
+    <title>Welcome to Word Games!</title>
+</head>
+<body>
+    <div class="header">
+        <h1>Welcome back, {{user_id.first_name}}!</h1>
+        <a href="/scoreboard" class="btn btn-info">Scoreboard</a> | <a href="/logout" class="btn btn-warning">Logout</a>
+        <br><br>
+    </div>
+    <div class="row">
+        <div class="col-sm">
+            <h3>Your Stats: {{user_id.curre nt_score}</h3>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <h2>Hangman</h2>
+                    <!-- <p>Level:</p>
+                    <p>Difficulty:</p>
+                    <p>Theme:</p> -->
+                    <!-- <a class="btn btn-success" href="/hangman">Play Hangman!</a> -->
+                <form class="card-text" action="/hangman" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="level">Level:</label>
+                        <select class="form-control" name="level" requied>
+                            <option value="1">Level 1</option>
+                            <option value="2">Level 2</option>
+                            <option value="3">Level 3</option>
+                        </select>            
+                    </div>
+                    <div class="form-group">
+                        <label for="difficulty">Difficulty:</label>
+                        <!-- <input type="text" name="difficulty" id="difficulty" class="form-control" required> -->
+                        <select class="form-control" name="difficulty" requied>
+                            <option value="easy">Easy</option>
+                            <option value="medium">Medium</option>
+                            <option value="hard">Hard</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="theme">Theme:</label>
+                        <select class="form-control" name="theme" requied>
+                            <option value="none">None</option>
+                            <option value="flowers">Flowers</option>
+                            <option value="trans">Transportation</option>
+                            <option value="animals">Animals</option>
+                        </select>
+                        <!-- <input type="text" name="theme" id="theme" class="form-control" required> -->
+                    </div>
+                    <input id="input" class="btn btn-success" type="Submit" name="" id="new_game" value="Start New Game">
+                </form>
+            </div>    
+            <div class="col-sm-6">
+                <h2>Word Jumble</h2>
+                <!-- <p>Level:</p>
+                <p>Difficulty:</p>
+                <p>Theme:</p>
+                <a class="btn btn-success" href="/word_jumble">Play Word Jumble!</a> -->
+                <form action="/start_jumble" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="level">Level:</label>
+                        <select class="form-control" name="level" requied>
+                            <option value="1">Level 1</option>
+                            <option value="2">Level 2</option>
+                            <option value="3">Level 3</option>
+                            <option value="10">Level 10</option>
+                        </select>
+                        <!-- <input type="text" name="level" id="level" class="form-control" required> -->
+                    </div>
+                    <div class="form-group">
+                        <label for="difficulty">Difficulty:</label>
+                        <select class="form-control" name="difficulty" requied>
+                            <option value="easy">Easy</option>
+                            <option value="medium">Medium</option>
+                            <option value="hard">Hard</option>
+                        </select>
+                        <!-- <input type="text" name="difficulty" id="difficulty" class="form-control" required> -->
+                    </div>
+                    <div class="form-group">
+                        <label for="theme">Theme:</label>
+                        <select class="form-control" name="theme" requied>
+                            <option value="none">None</option>
+                            <option value="flowers">Flowers</option>
+                            <option value="trans">Transportation</option>
+                            <option value="animals">Animals</option>
+                        </select>
+                        <!-- <input type="text" name="theme" id="theme" class="form-control" required> -->
+                    </div>
+                    <!-- <input class="btn btn-success" type="Submit" name="" id="new_game" value="Start New Game"> -->
+                    <input class="btn btn-success" type="submit" value="Start New Game">
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- <style type="text/css">
+        body {
+            transition: .2s background;
+            background: linear-gradient(135deg, rgb(141, 141, 153) 0%, rgb(155, 66, 83) 100%);
+            /* color: white; */
+            height: 100%;
+        }
+    </style> -->
+</body>
+</html>

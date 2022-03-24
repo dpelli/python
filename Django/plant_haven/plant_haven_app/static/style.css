@@ -1,0 +1,26 @@
+*{
+    margin: 20px 10px;
+}
+
+.nav-link{
+    color:#28a745;
+}
+
+.nav-pills .nav-link.active {
+    color: white;
+    background-color: #28a745;
+}
+.row, .card h1 {
+    text-align: center;
+}
+.form-group{
+    text-align: left;
+    align-content: stretch;
+}
+.table{
+    color: #28a745;
+}
+h1, h2{
+    color: #28a745;
+    padding: 15px;
+}
